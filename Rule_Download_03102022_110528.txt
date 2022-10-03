@@ -1,0 +1,96 @@
+[
+  {
+    "name": "rules/00gjdgxs4dg6k6s",
+    "displayName": "acome@wook.id",
+    "description": "acome@wook.id",
+    "targets": {
+      "includedEntity": [
+        {
+          "ouId": "/"
+        }
+      ]
+    },
+    "updateTime": "2022-09-06T17:08:08.351206Z",
+    "trigger": [
+      "DEVICE_EVENTS"
+    ],
+    "condition": {
+      "andCondition": {
+        "condition": [
+          {
+            "baseCondition": {
+              "matchSource": "DEVICE_USER_EMAIL",
+              "matcher": {
+                "stringMatcher": {
+                  "caseSensitive": false,
+                  "equals": "admin@acomewook.com ",
+                  "minimumMatchCount": 0
+                }
+              }
+            }
+          },
+          {
+            "baseCondition": {
+              "matchSource": "DEVICE_EVENT_NAME",
+              "matcher": {
+                "enumMatcher": {
+                  "value": "ANDROID_WORK_PROFILE_SUPPORT_ENABLED_EVENT"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "action": [
+      {
+        "actionName": "SUB_ACTION",
+        "actionId": "00gjdgxs43rrav6",
+        "actionCondition": {
+          "baseCondition": {
+            "matchSource": "THRESHOLD",
+            "matcher": {
+              "timeSeriesMatcher": {
+                "aggregationWindowSize": "86400s",
+                "aggregationMethod": "COUNT",
+                "comparator": "GREATER_THAN",
+                "fixedIntValue": "0"
+              }
+            }
+          }
+        },
+        "subAction": [
+          {
+            "name": "ALERT",
+            "actionParameters": {
+              "@type": "type.googleapis.com/apps.alecs.AlertConfiguration",
+              "notificationConfig": {
+                "recipientConfigs": [
+                  {
+                    "channel": [
+                      "EMAIL"
+                    ],
+                    "superAdmin": true
+                  }
+                ]
+              },
+              "status": {},
+              "severity": "MEDIUM"
+            }
+          }
+        ],
+        "genericApplicationId": {
+          "googleApplication": "security_investigation_tool"
+        }
+      }
+    ],
+    "status": "ACTIVE",
+    "createTime": "2022-09-06T17:08:08.200026368Z",
+    "ruleType": "GSC",
+    "applicationIds": [
+      {
+        "googleApplication": "security_investigation_tool"
+      }
+    ]
+  }
+]
